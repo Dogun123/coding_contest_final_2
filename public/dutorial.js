@@ -22,7 +22,7 @@ const chartStop = document.querySelector('.population__chart__stop');
 const volumeUp = document.querySelector('.volume__up');
 const volumeOff = document.querySelector('.volume__off');
 const chartResume = document.querySelector('.population__chart__resume');
-
+const typingAudio = new Audio('public/music/Keyboard Typing.wav');
 
 let yearNumCount = 0
 
@@ -791,7 +791,7 @@ scriptFold.addEventListener('click',()=>{
     scriptContainer.style.top='95%';
   } else{
     console.log('hi');
-    scriptContainer.style.top='-185px';
+    scriptContainer.style.top='-220px';
   }
 })
 
@@ -827,6 +827,7 @@ let speedSlow = 300;
 let typingCount = 0;
 
 function typing(){
+  typingAudio.play();
   if(index<content[typingCount].length){
     if(content[typingCount][index]=="/"){
       var a = document.createElement('br');
@@ -839,8 +840,9 @@ function typing(){
         setTimeout(typing,speed);
       }
     } else{
-        skipButton.classList.add('skip__animation');
-        typingAnimation()
+        // skipButton.classList.add('skip__animation');
+        typingAnimation();
+        typingAudio.pause();
     }
   console.log(typingCount);
 }
@@ -884,13 +886,21 @@ function goBack(){
 
 setTimeout(typing, speed);
 
-skipButton.addEventListener('mousedown',()=>{
+skipButton.addEventListener('mouseover',()=>{
   clickSound()
 })
 
-backButton.addEventListener('mousedown',()=>{
+backButton.addEventListener('mouseover',()=>{
   clickSound()
 })
+
+// skipButton.addEventListener('mousedown',()=>{
+//   clickSound()
+// })
+
+// backButton.addEventListener('mousedown',()=>{
+//   clickSound()
+// })
 
 skipButton.addEventListener('click',()=>{
   if(typingCount!=7){
@@ -964,7 +974,7 @@ renderProgress()
       setTimeout(()=>{
       popupTotal.style.display ='';
       google.charts.setOnLoadCallback(drawBasicTotal);
-    },1000); 
+    },500); 
   } else{
     popupTotal.style.display ='none';
   }
@@ -1188,10 +1198,13 @@ function wrongAnswer(){
 
 function correctAnswer(){
   var correctaudio = document.getElementById("correctAudio");
+  correctaudio.volume=0.5;
   correctaudio.play();
 }
 
 function clickSound(){
   var clickaudio = document.getElementById("click");
+  clickaudio.volume = 0.5;
   clickaudio.play();
+  
 }

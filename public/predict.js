@@ -101,6 +101,7 @@ const chartStop = document.querySelector('.population__chart__stop');
 const volumeUp = document.querySelector('.volume__up');
 const volumeOff = document.querySelector('.volume__off');
 const chartResume = document.querySelector('.population__chart__resume');
+const typingAudio = new Audio('public/music/Keyboard Typing.wav');
 
 
 let yearNumCount = 0
@@ -1140,6 +1141,7 @@ scriptOpen.addEventListener('click',()=>{
 
 
     function typing(){
+      typingAudio.play();
       // if(index<content[typingCount].length){
       //   if(content[typingCount][index]=="/"){
       //     var a = document.createElement('br')
@@ -1165,7 +1167,7 @@ scriptOpen.addEventListener('click',()=>{
           setTimeout(typing,speed);
         }
       } else{
-          skipButton.classList.add('skip__animation');
+        typingAudio.pause();
           typingAnimation()
       }
     }
@@ -1222,11 +1224,11 @@ scriptOpen.addEventListener('click',()=>{
     setTimeout(typing, speed);
     
     // 넘어가기,뒤로가기
-    skipButton.addEventListener('mousedown',()=>{
+    skipButton.addEventListener('mouseover',()=>{
       clickSound()
     })
     
-    backButton.addEventListener('mousedown',()=>{
+    backButton.addEventListener('mouseover',()=>{
       clickSound()
     })
 
@@ -1342,6 +1344,7 @@ hintClose.addEventListener('click',()=>{
 
 function clickSound(){
   var clickaudio = document.getElementById("click");
+  clickaudio.volume= 0.5;
   clickaudio.play();
 }
 

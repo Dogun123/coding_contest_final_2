@@ -9,7 +9,7 @@ const content =[
 "음.. 아닌데.. 우리 다시 공부하고 올까?",
 "맞아! 우리 펭귄국은 고령화 문제가 심각한 나라야. /평균 연령이 무려 65세라고!",
 "짜잔~ 고령화의 원인을 알아내려고 도서관에서 중요한 데이터를 챙겨왔어./ 바로 1900년부터 모아온 펭귄국의 인구 피라미드 데이터지.",
-"화살표 버튼으로 원하는 연도의 데이터를 볼 수 있어. /같이 살펴보자. 뭐든 찾아내면 이야기해 줘",
+"화살표 버튼을 눌러 연도의 데이터를 볼 수 있어. /2020년까지 살펴보자. 뭐든 찾아내면 이야기해 줘",
 "그래? 마침 나도 굉장한 걸 발견했어. /내가 먼저 말해볼게.",
 "1900년의 인구 피라미드에서 0~9살이던 사람들이 10년 뒤에는 몇 살이 될까?",
 "다시 생각해봐 /(0~9살이던 사람들이 10년 뒤에는 몇 살이 될까?)",
@@ -104,6 +104,7 @@ const indexlearn=document.querySelector('.index_learn');
 const indexproblem1=document.querySelector('.index_problem1');
 const indexproblem2=document.querySelector('.index_problem2');
 const body=document.querySelector('body');
+const typingAudio = new Audio('public/music/Keyboard Typing.wav');
 
 let speed = 30;
 let speedSlow = 300;
@@ -263,11 +264,11 @@ leftbutton.addEventListener("click",()=>{
     }
 })
 
-skipButton.addEventListener('mousedown',()=>{
+skipButton.addEventListener('mouseover',()=>{
     clickSound()
 })
   
-  backButton.addEventListener('mousedown',()=>{
+  backButton.addEventListener('mouseover',()=>{
     clickSound()
 })
 
@@ -476,6 +477,7 @@ slowButton.addEventListener('click',()=>{
 //functions
 function clickSound(){
     var clickaudio = document.getElementById("click");
+    clickaudio.volume=0.5;
     clickaudio.play();
 }
 
@@ -486,6 +488,7 @@ function wrongAnswer(){
 
 function correctAnswer(){
     var correctaudio = document.getElementById("correctAudio");
+    correctaudio.volume=0.5;
     correctaudio.play();
 }
 
@@ -837,6 +840,7 @@ function midTypingPlay () {
 
 
 function typing(){ // 타이핑 효과
+    typingAudio.play();
     if(index<content[typingCount].length){
         if(content[typingCount][index] == "/"){
             var a = document.createElement('br')
@@ -851,6 +855,7 @@ function typing(){ // 타이핑 효과
 
     } else{
         skipButton.classList.add('skip__animation');
+        typingAudio.pause();
         afterTypingAnimation()
     }
 }
@@ -960,11 +965,17 @@ function beforeTypingAnimation(){
             displayControl(yearNum="2020");
             renderControl(["10","9","8","7","6","5","4","3","2","1"]);
             break; 
-        case 9 :case 11 :case 12 :case 13 :
+        case 9 :case 11 : case 13 :
             displayControl(yNum=1900,ybtn="");
             agingMode=true;
             renderControl();
             break; 
+        case 12 :
+            skipButton.textContent = "";
+            displayControl(yNum=1900,ybtn="");
+            agingMode=true;
+            renderControl();
+            break;     
         case 14 :case 15 :
             displayControl(yNum=1900,ybtn="");
             agingMode=true;
@@ -1107,7 +1118,7 @@ function afterTypingAnimation(){ // 상호작용 요소 변화
             hintbutton.style.display="block"
             break; 
         case 7 :
-            scriptButtoncontrola("그럴까 잘모르겠네 ㅎㅎ")
+            scriptButtoncontrola("[학습하기]로")
             scriptButtoncontrol1(6, "아냐 다시 맞춰볼게")
             break;
         case 10 :

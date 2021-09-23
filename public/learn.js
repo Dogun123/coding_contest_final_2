@@ -21,6 +21,11 @@ const chartStop = document.querySelector('.population__chart__stop');
 const volumeUp = document.querySelector('.volume__up');
 const volumeOff = document.querySelector('.volume__off');
 const chartResume = document.querySelector('.population__chart__resume');
+const typingAudio = new Audio('public/music/Keyboard Typing.wav');
+
+
+// silence.play();
+
 let answerSound = 0;
 
 
@@ -756,6 +761,7 @@ const chartZero = document.querySelectorAll('.chart_zero');
 const popuChartMid = document.querySelector('.population__chart__mid');
 
 console.log(chartZero);
+skipButton.style.display="none";
 
 // skipButton.style.pointerEvents="none";
 // 컨테이너 보이게,안보이게
@@ -825,6 +831,7 @@ scriptOpen.addEventListener('click',()=>{
 
 
     function typing(){   
+    typingAudio.play();
     if(index<content[typingCount].length){
       if(content[typingCount][index]=="/"){
         var a = document.createElement('br');
@@ -837,8 +844,8 @@ scriptOpen.addEventListener('click',()=>{
           setTimeout(typing,speed);
         }
       } else{
-          skipButton.classList.add('skip__animation');
-          typingAnimation()
+          typingAnimation();
+          typingAudio.pause();
       }
     }
 
@@ -904,11 +911,11 @@ scriptOpen.addEventListener('click',()=>{
     setTimeout(typing, speed);
     
     // 넘어가기,뒤로가기
-    skipButton.addEventListener('mousedown',()=>{
+    skipButton.addEventListener('mouseover',()=>{
       clickSound()
     })
     
-    backButton.addEventListener('mousedown',()=>{
+    backButton.addEventListener('mouseover',()=>{
       clickSound()
     })
 
@@ -1398,15 +1405,18 @@ backButton.innerHTML="<<이전"
 
 function wrongAnswer(){
   var wrongaudio = document.getElementById("wrongAudio");
+  wrongaudio.volume=0.3;
   wrongaudio.play();
 }
 
 function correctAnswer(){
   var correctaudio = document.getElementById("correctAudio");
+  correctaudio.volume=0.5;
   correctaudio.play();
 }
 
 function clickSound(){
   var clickaudio = document.getElementById("click");
+  clickaudio.volume=0.5;
   clickaudio.play();
 }
